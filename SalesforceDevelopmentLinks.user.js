@@ -10,19 +10,19 @@
   var sforce;
 
   var Label = {
-    test: "テスト"
+    test: 'テスト'
   };
 
-  var ActionSeparator = " | ";
+  var ActionSeparator = ' | ';
 
   // Apex Class
-  if ("/01p" === pathname) {
-    var cells = document.querySelectorAll(".actionColumn");
+  if ('/01p' === pathname) {
+    var cells = document.querySelectorAll('.actionColumn');
     for (var i = 0; i < cells.length; i++) {
       var cell = cells[i];
       var nsPrefix = getNameSpacePrefix(cell);
-      var id = getParameterFromChildlen(cell, "id");
-      var apexName = getParameterFromChildlen(cell, "apex_name");
+      var id = getParameterFromChildlen(cell, 'id');
+      var apexName = getParameterFromChildlen(cell, 'apex_name');
       if (!id || !apexName) {
         continue;
       }
@@ -32,14 +32,14 @@
   }
 
   // ページ一覧画面の表示件数を増やす
-  var linkToPages = doc.getElementById("ApexPages_font");
+  var linkToPages = doc.getElementById('ApexPages_font');
   if (linkToPages) {
-    linkToPages.href = "/066?" + encodeURIComponent("j_id0:theTemplate:j_id8:rowsperpage") + "=100";
+    linkToPages.href = '/066?' + encodeURIComponent('j_id0:theTemplate:j_id8:rowsperpage') + '=100';
   }
   // クラス一覧画面の表示件数を増やす
-  var linkToClasses = doc.getElementById("ApexClasses_font");
+  var linkToClasses = doc.getElementById('ApexClasses_font');
   if (linkToClasses) {
-    linkToClasses.href = "/01p?" + encodeURIComponent("all_classes_page:theTemplate:classList:rowsperpage") + "=100";
+    linkToClasses.href = '/01p?' + encodeURIComponent('all_classes_page:theTemplate:classList:rowsperpage') + '=100';
   }
 
 
@@ -47,7 +47,7 @@
    * 渡されたノードから名前空間プレフィックスを取得します。
    */
   function getNameSpacePrefix(srcCell) {
-    var nsCell = srcCell.parentNode.querySelector("td.dataCell");
+    var nsCell = srcCell.parentNode.querySelector('td.dataCell');
     if (nsCell) {
       return nsCell.textContent.replace(/[\s]/, '');
     }
@@ -57,7 +57,7 @@
    * 渡されたノード内のa要素のhrefから指定されたパラメータを取得します。
    */
   function getParameterFromChildlen(node, name) {
-    var links = node.getElementsByTagName("a");
+    var links = node.getElementsByTagName('a');
     for (var i = 0, l; i < links.length; i++) {
       l = links[i];
       var param = getUrlParameter(l.href, name);
@@ -72,17 +72,17 @@
    * パラメータが存在しない場合、nullを返します。
    */
   function getUrlParameter(url, name) {
-    var tail = url.split(name + "=")[1];
-    return (tail ? tail.split("&")[0] : null);
+    var tail = url.split(name + '=')[1];
+    return (tail ? tail.split('&')[0] : null);
   }
 
   /**
    * Apexクラスのテストページへのリンク作成
    */
   function createTestLink(id, apexClass, nsPrefix) {
-    var elm = doc.createElement("a");
-    elm.className = "actionLink";
-    elm.href = "/setup/build/runApexTest.apexp?class_id=" + id + "&class_name=" + apexClass + (nsPrefix ? "&ns_prefix=" + nsPrefix : "");
+    var elm = doc.createElement('a');
+    elm.className = 'actionLink';
+    elm.href = '/setup/build/runApexTest.apexp?class_id=' + id + '&class_name=' + apexClass + (nsPrefix ? '&ns_prefix=' + nsPrefix : '');
     elm.href = 'javascript: void 0;';
     function onEnd(test) {
       hideLoadingImage();
