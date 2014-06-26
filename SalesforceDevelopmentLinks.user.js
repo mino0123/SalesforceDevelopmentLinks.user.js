@@ -102,6 +102,11 @@
     var item = new sforce.SObject('ApexTestQueueItem');
     item.ApexClassId = classId;
     sforce.connection.create([item], function (results) {
+      if (!results[0].getBoolean('success')) {
+        alert(results[0].errors.message);
+        hideLoadingImage();
+        return;
+      }
       checkTestStatus(results[0].id, function (item) {
         callback(item);
         
