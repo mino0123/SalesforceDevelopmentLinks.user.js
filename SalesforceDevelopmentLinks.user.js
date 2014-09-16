@@ -102,7 +102,7 @@
     var item = new sforce.SObject('ApexTestQueueItem');
     item.ApexClassId = classId;
     sforce.connection.create([item], function (results) {
-      if (!results[0].getBoolean('success')) {
+      if (results[0].success !== 'true') {
         alert(results[0].errors.message);
         hideLoadingImage();
         return;
@@ -116,7 +116,7 @@
 
   function checkTestStatus(id, callback) {
     sforce.connection.query("select Id, Status from ApexTestQueueItem where Id = '" + id + "'", function (qr) {
-      var record = qr.getArray('records')[0],
+      var record = qr.records,
           id = record.Id,
           status = record.Status;
       if (status === 'Completed') {
